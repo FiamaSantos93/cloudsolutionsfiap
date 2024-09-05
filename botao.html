@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inovoice</title>
+</head>
+<body>
+    <h1>Bem-vindo ao Inovoice!</h1>
+    <p>Pressione o botão abaixo para ouvir um áudio.</p>
+    <button onclick="playAudio()">Tocar Áudio</button>
+    <audio id="audio" src="audio.mp3"></audio>
+
+    <script>
+        function playAudio() {
+            var audio = document.getElementById('audio');
+            audio.play();
+        }
+    </script>
+</body>
+</html>
