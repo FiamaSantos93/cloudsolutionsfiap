@@ -3,45 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload de Áudio</title>
+    <title>Inovoice</title>
     <style>
         body {
-            font-family: Arial, sans-serif; /* Fonte padrão para o corpo da página */
+            font-family: 'Candara', sans-serif;
         }
         h1 {
-            font-family: 'Candara', sans-serif; /* Fonte Candara para o título */
-            color: #003366; /* Cor Azul Marinho */
-            font-weight: bold; /* Texto em negrito */
+            color: #003366; /* Azul Marinho */
+            font-weight: bold;
         }
         p {
-            font-family: 'Candara', sans-serif; /* Fonte Candara para o parágrafo */
-            font-style: italic; /* Texto em itálico */
-            color: #003366; /* Cor Azul Marinho */
+            font-style: italic;
         }
     </style>
 </head>
 <body>
-    <h1>Bem-vindo(a) ao InoVoice</h1>
-    <p>Insira um áudio para analisar</p>
-    <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" id="audioFile" name="audioFile" accept="audio/*" required>
-        <button type="button" onclick="uploadAudio()">Enviar Áudio</button>
+    <h1>Bem-vindo ao Inovoice!</h1>
+    <p>Insira um áudio para analisar:</p>
+    <form id="uploadForm" action="YOUR_BACKEND_ENDPOINT" method="POST" enctype="multipart/form-data">
+        <input type="file" id="audioFile" name="audioFile" accept="audio/*" />
+        <button type="submit">Enviar Áudio</button>
     </form>
 
     <script>
-        function uploadAudio() {
-            var formData = new FormData(document.getElementById('uploadForm'));
-            fetch('http://your-server-endpoint/upload', {
+        // Script opcional para manipular o envio do formulário
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário
+            var formData = new FormData(this);
+            
+            fetch('YOUR_BACKEND_ENDPOINT', {
                 method: 'POST',
                 body: formData
-            }).then(response => response.json())
-              .then(data => {
-                  alert('Áudio enviado com sucesso!');
-                  console.log(data);
-              }).catch(error => {
-                  console.error('Erro ao enviar áudio:', error);
-              });
-        }
+            }).then(response => {
+                if (response.ok) {
+                    alert('Áudio enviado com sucesso!');
+                } else {
+                    alert('Falha ao enviar áudio.');
+                }
+            }).catch(error => {
+                console.error('Erro:', error);
+            });
+        });
     </script>
 </body>
 </html>
