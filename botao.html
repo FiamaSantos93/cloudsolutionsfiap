@@ -3,19 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inovoice</title>
+    <title>Upload de Áudio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Fonte padrão para o corpo da página */
+        }
+        h1 {
+            font-family: 'Candara', sans-serif; /* Fonte Candara para o título */
+            color: #003366; /* Cor Azul Marinho */
+            font-weight: bold; /* Texto em negrito */
+        }
+        p {
+            font-family: 'Candara', sans-serif; /* Fonte Candara para o parágrafo */
+            font-style: italic; /* Texto em itálico */
+            color: #003366; /* Cor Azul Marinho */
+        }
+    </style>
 </head>
 <body>
-    <h1>Bem-vindo ao Inovoice!</h1>
-    <p>Pressione o botão abaixo para inserir um áudio.</p>
-    <button onclick="playAudio()">Upload</button>
-    <audio id="audio" src="audio.mp3"></audio>
+    <h1>Bem-vindo(a) ao InoVoice</h1>
+    <p>Insira um áudio para analisar</p>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="audioFile" name="audioFile" accept="audio/*" required>
+        <button type="button" onclick="uploadAudio()">Enviar Áudio</button>
+    </form>
 
     <script>
-        function playAudio() {
-            var audio = document.getElementById('audio');
-            audio.play();
+        function uploadAudio() {
+            var formData = new FormData(document.getElementById('uploadForm'));
+            fetch('http://your-server-endpoint/upload', {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+              .then(data => {
+                  alert('Áudio enviado com sucesso!');
+                  console.log(data);
+              }).catch(error => {
+                  console.error('Erro ao enviar áudio:', error);
+              });
         }
     </script>
 </body>
 </html>
+
