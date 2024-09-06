@@ -1,0 +1,15 @@
+{
+    "name": "audio-upload",
+    "version": "1.0.0",
+    "description": "Servidor para upload e armazenamento de áudios no GitHub",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "multer": "^1.4.3",
+      "@octokit/rest": "^18.0.0"
+    }
+  }
+  
