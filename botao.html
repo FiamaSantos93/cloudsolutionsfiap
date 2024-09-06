@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inovoice</title>
+    <style>
+        body {
+            font-family: 'Candara', sans-serif;
+        }
+        h1 {
+            color: #003366; /* Azul Marinho */
+            font-weight: bold;
+        }
+        p {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bem-vindo ao Inovoice!</h1>
+    <p>Insira um áudio para analisar:</p>
+    <form id="uploadForm" action="YOUR_BACKEND_ENDPOINT" method="POST" enctype="multipart/form-data">
+        <input type="file" id="audioFile" name="audioFile" accept="audio/*" />
+        <button type="submit">Enviar Áudio</button>
+    </form>
+
+    <script>
+        // Script opcional para manipular o envio do formulário
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário
+            var formData = new FormData(this);
+            
+            fetch('YOUR_BACKEND_ENDPOINT', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    alert('Áudio enviado com sucesso!');
+                } else {
+                    alert('Falha ao enviar áudio.');
+                }
+            }).catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+    </script>
+</body>
+</html>
+
