@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and Deploy to Azure Web App
+name: Build and deploy static site to Azure Web App - challenge-inovoice
 
 on:
   push:
@@ -17,14 +17,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Create release archive
-        run: tar -czvf release.tar.gz index.html package.json
+      - name: Zip artifact for deployment
+        run: zip -r release.zip index.html package.json
 
-      - name: Upload artifact
+      - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: webapp
-          path: release.tar.gz
+          name: static-site
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -34,23 +34,19 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Download artifact
+      - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: webapp
+          name: static-site
 
-      - name: Unzip artifact
-        run: tar -xzvf release.tar.gz
+      - name: Unzip artifact for deployment
+        run: unzip -o release.zip
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'your-web-app-name'
+          app-name: 'challenge-inovoice'
           slot-name: 'Production'
-          package: .
+          package: '.'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
-
-
-
-
